@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/link.dart';
 
@@ -66,11 +67,25 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('DEMO'),
-      ),
       backgroundColor: Colors.amber,
-      body: PageStorage(bucket: bucket, child: pages[_selectedIndex]),
+      body: PageTransitionSwitcher(
+        transitionBuilder: (
+          Widget child,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation,
+        ) {
+          return FadeThroughTransition(
+            animation: animation,
+            secondaryAnimation: secondaryAnimation,
+            child: child,
+            fillColor: Colors.amber,
+          );
+        },
+        child: KeyedSubtree(
+          key: ValueKey(_selectedIndex),
+          child: pages[_selectedIndex],
+        ),
+      ),
       bottomNavigationBar: _bottomNavigationBar(
           _selectedIndex), // This trailing comma makes auto-formatting nicer for build methods.
     );
@@ -82,15 +97,14 @@ class Page1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: Center(
-        child: Link(
-          uri: Uri.parse(url),
-          target: LinkTarget.blank,
-          builder: (context, onPressed) {
-            return ElevatedButton(
-                onPressed: onPressed, child: const Text('Button 1'));
-          },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Page 1'),
+      ),
+      backgroundColor: Colors.amber,
+      body: const SizedBox.expand(
+        child: Center(
+          child: Text('Empty Page'),
         ),
       ),
     );
@@ -101,8 +115,12 @@ class Page2 extends StatelessWidget {
   const Page2({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: Center(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Page 2'),
+      ),
+      backgroundColor: Colors.amber,
+      body: Center(
         child: Link(
           uri: Uri.parse(url),
           target: LinkTarget.blank,
