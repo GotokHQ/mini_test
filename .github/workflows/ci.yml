@@ -36,6 +36,7 @@ jobs:
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting:gotok_dev_web_app
+          projectId: ${{ secrets.GOTOK_DEV_PROJECT_ID }}
         env:
           FIREBASE_TOKEN: ${{ secrets.GOTOK_FIREBASE_TOKEN }}
           PROJECT_ID: ${{ secrets.GOTOK_DEV_PROJECT_ID }}
