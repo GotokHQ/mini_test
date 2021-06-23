@@ -38,4 +38,4 @@ jobs:
           args: deploy --only hosting:gotok_dev_web_app
         env:
           FIREBASE_TOKEN: ${{ secrets.GOTOK_FIREBASE_TOKEN }}
-          PROJECT_ID: ${{ secrets.GOTOK_DEV_FIREBASE_PROJECT_ID }}
+          PROJECT_ID: ${{ secrets.GOTOK_DEV_PROJECT_ID }}
